@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #full {
+        height: 1200px;
+        background-color: #f22;
+      }
+
+      #test {
+        height: 100px;
+        background-color: #3f3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="full">
+        兼容性ie全挂，qq,baidu移动端的也挂
+    </div>
+    <div id="test"></div>
+    <script>
+      var io = new IntersectionObserver(
+        entries => {
+          console.log('entries: ', entries);
+        },
+        {
+          threshold: [0, 0.5, 1]
+        }
+      );
+      io.observe(document.getElementById('test'));
+    </script>
+  </body>
+</html>

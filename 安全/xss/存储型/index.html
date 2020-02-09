@@ -1,0 +1,28 @@
+<input type="text" id="input" />
+<button id="btn">Submit</button>
+
+<script>
+  const input = document.getElementById('input');
+  const btn = document.getElementById('btn');
+
+  let val;
+
+  input.addEventListener(
+    'change',
+    e => {
+      val = e.target.value;
+    },
+    false
+  );
+
+  btn.addEventListener(
+    'click',
+    e => {
+      fetch('http://localhost:8001/save', {
+        method: 'POST',
+        body: val
+      });
+    },
+    false
+  );
+</script>

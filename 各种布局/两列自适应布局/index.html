@@ -1,0 +1,40 @@
+<style>
+  /* float+overflow:hidden,bfc */
+  .parent {
+    overflow: hidden;
+    zoom: 1;
+  }
+  .left {
+    float: left;
+    margin-right: 20px;
+  }
+  .right {
+    overflow: hidden;
+    zoom: 1;
+  }
+  /* flex */
+  .parent {
+    display: flex;
+  }
+  .right {
+    margin-left: 20px;
+    flex: 1;
+  }
+  /* grid */
+  .parent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+  }
+</style>
+<div class="parent" style="background-color: lightgrey;">
+  <div class="left" style="background-color: lightblue;">
+    <p>
+      left,注意点:如果侧边栏在右边时，注意渲染顺序。即在HTML中，先写侧边栏后写主内容
+    </p>
+  </div>
+  <div class="right" style="background-color: lightgreen;">
+    <p>right</p>
+    <p>right</p>
+  </div>
+</div>

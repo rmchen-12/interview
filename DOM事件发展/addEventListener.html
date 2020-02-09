@@ -1,0 +1,50 @@
+<style>
+  #s1 {
+    width: 100px;
+    height: 100px;
+    background: gray;
+  }
+  #s2 {
+    width: 50px;
+    height: 50px;
+    background: bisque;
+  }
+</style>
+<div id="s1">
+  s1
+  <div id="s2">s2</div>
+</div>
+<script>
+  s1.addEventListener(
+    'click',
+    function(e) {
+      alert('s1 冒泡事件'); //4️⃣
+      console.log(this, event.target, event.currentTarget);
+    },
+    false
+  );
+  s2.addEventListener(
+    'click',
+    function(e) {
+      alert('s2 冒泡事件'); //2️⃣
+      console.log(this, event.target, event.currentTarget);
+    },
+    false
+  );
+
+  //   s1.addEventListener(
+  //     'click',
+  //     function(e) {
+  //       alert('s1 捕获事件'); //1️⃣
+  //     },
+  //     true
+  //   );
+
+  //   s2.addEventListener(
+  //     'click',
+  //     function(e) {
+  //       alert('s2 捕获事件'); //3️⃣
+  //     },
+  //     true
+  //   );
+</script>
