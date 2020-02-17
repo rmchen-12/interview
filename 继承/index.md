@@ -1,6 +1,7 @@
 ## 确定原型和实例的关系
 1. instance instanceof Object // true
 2. Object.prototype.isPrototypeOf(instance) // true
+3. Object.getPrototypeOf(ColorPoint) === Point // true
 
 ## 原型链继承
 ```
