@@ -20,10 +20,14 @@
 
   <body>
     <div id="full">
-        兼容性ie全挂，qq,baidu移动端的也挂
+      兼容性ie全挂，qq,baidu移动端的也挂
     </div>
     <div id="test"></div>
     <script>
+      // 获取块距离窗口四边的距离以及自身的宽高，兼容性没问题
+      console.log(document.querySelector('#test').getBoundingClientRect());
+
+      // 当元素进入视口时触发的回调，IE，Opera，移动端qq,baidu不行
       var io = new IntersectionObserver(
         entries => {
           console.log('entries: ', entries);

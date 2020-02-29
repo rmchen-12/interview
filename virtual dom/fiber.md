@@ -26,7 +26,7 @@ Fiber 也称协程、或者纤程, React Fiber 的思想和协程的概念是契
     - Low (10s) 这些任务可以放后，但是最终应该得到执行. 例如分析通知
     - Idle (没有超时时间) 一些没有必要做的任务 (e.g. 比如隐藏的内容), 可能会被饿死
   - 兼容性差，兼容代码如下
-```
+```javascript
 const el = document.getElementById('root')
 const btn = document.getElementById('btn')
 const ch = new MessageChannel()
@@ -96,7 +96,7 @@ function simpleRequestIdleCallback(callback, timeout) {
 
 
 一个Fiber的结构
-```
+```javascript
 interface Fiber {
   /**
    * ⚛️ 节点的类型信息

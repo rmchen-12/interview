@@ -79,3 +79,5 @@ function (_Point) {
 
   return ColorPoint;
 }(Point);
+
+new ColorPoint(1, 2, 'AS');

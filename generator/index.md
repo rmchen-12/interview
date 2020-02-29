@@ -46,3 +46,31 @@ for (let [key, value] of iterEntries(myObj)) {
   console.log(key, value);
 }
 ```
+
+### co
+```javascript
+function co(gen) {
+    return new Promise((resolve, reject) => {
+        var fulfilled = (value) => {
+            try {
+                step(gen.next(value));
+            } catch (e) {
+                reject(e);
+            }
+        };
+        var rejected = (value) => {
+            try {
+                step(gen.throw(value));
+            } catch (e) {
+                reject(e);
+            }
+        };
+        var step = (result) => {
+            result.done ? resolve(result.value)
+                : Promise.resolve(result.value).then(fulfilled, rejected);
+        };
+
+        step((gen = gen()).next());
+    });
+}
+```

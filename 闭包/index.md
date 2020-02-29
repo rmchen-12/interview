@@ -7,7 +7,7 @@
 - 引用闭包的函数是个局部变量，等函数销毁后，会在下次垃圾回收中清除
 
 应用：
-1. 设计私有的方法和变量，像什么节流防抖里保存timer
+1. 设计私有的方法和变量，像什么节流防抖里保存timer，redux保存全局state
 2. 单例模式
 ```
 var singleton = (function(){
@@ -42,4 +42,4 @@ var objEvent = objEvent || {};
     objEvent.removeEvent = removeEvent;
 })();
 ```
-
+4. redux，redux的目的就是提供一个全局state，同时又想state不被修改，闭包就完美满足这种情况

@@ -19,3 +19,5 @@ class ColorPoint extends Point {
     return this.color + ' ' + super.toString(); // 调用父类的toString()
   }
 }
+
+new ColorPoint(1, 2, 'AS');

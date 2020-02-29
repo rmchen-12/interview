@@ -1,4 +1,4 @@
-- 基本数据类型 null Undefined boolean string number symbol biginit 
+- 基本数据类型 null undefined boolean string number symbol bigInt 
 - 引用数据类型 object
 
 ### 判断数据类型的方法
