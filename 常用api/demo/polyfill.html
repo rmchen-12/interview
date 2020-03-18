@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style: none;
+      }
+
+      li {
+        background: aqua;
+        height: 100px;
+      }
+
+      .middle {
+        background: pink;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul class="ct">
+      <li>item 1</li>
+      <li>item 2</li>
+      <li>item 3</li>
+      <li>item 4</li>
+      <li>item 5</li>
+      <li>item 6</li>
+      <li>item 7</li>
+      <li>item 8</li>
+      <li>item 9</li>
+      <li>item 10</li>
+      <li class="middle">hello world</li>
+      <li>item 1</li>
+      <li>item 2</li>
+      <li>item 3</li>
+      <li>item 4</li>
+      <li>item 5</li>
+      <li>item 6</li>
+      <li>item 7</li>
+      <li>item 8</li>
+      <li>item 9</li>
+      <li>item 10</li>
+    </ul>
+    <script>
+      function isVisible($node) {
+        var scrollTop = $(window).scrollTop(); //滚动条卷曲高度
+        var windowHeight = $(window).height(); //可视内容区高度
+        var offsetTop = $node.offset().top; //node偏移高度
+
+        if (
+          offsetTop < scrollTop + windowHeight &&
+          offsetTop + $node.height() > scrollTop
+        ) {
+          console.log('true');
+          console.log(scrollTop);
+          console.log(windowHeight);
+          console.log(offsetTop);
+        } else {
+          console.log('false');
+        }
+      }
+      
+      $(window).on('scroll', function() {
+        if (isVisible($('.middle'))) {
+          console.log(true);
+        }
+      });
+    </script>
+  </body>
+</html>

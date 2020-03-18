@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="a">
+      <div id="b">
+        <div id="c">
+          <div id="d"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      console.log('冒泡阶段');
+      document.getElementById('a').addEventListener('click', function(e) {
+        console.log(
+          'target:' + e.target.id + '&currentTarget:' + e.currentTarget.id
+        );
+      });
+      document.getElementById('b').addEventListener('click', function(e) {
+        console.log(
+          'target:' + e.target.id + '&currentTarget:' + e.currentTarget.id
+        );
+      });
+      document.getElementById('c').addEventListener('click', function(e) {
+        console.log(
+          'target:' + e.target.id + '&currentTarget:' + e.currentTarget.id
+        );
+      });
+      document.getElementById('d').addEventListener('click', function(e) {
+        console.log(
+          'target:' + e.target.id + '&currentTarget:' + e.currentTarget.id
+        );
+      });
+    </script>
+  </body>
+</html>

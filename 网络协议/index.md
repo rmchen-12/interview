@@ -1,0 +1,91 @@
+### OSI模型
+|层级|名称|例子|
+|:-|:-:|-:|
+|7|应用层|包装数据(http,dns,ftp文件传输协议,pop3接受邮件协议，smtp发送邮件协议，webSocket)| 
+|6|表示层|SSL/TSL(加密、转换翻译、压缩解压缩)|
+|5|会话层|为创建、管理和终止会话提供必要的方法(api)，比如socket,负责管理和确定传输模式(单向，半双工，全双工)|
+|4|传输层|端对端，主机对主机的传输(TCP/UDP)|
+|3|网络层|从一个设备发送到另一个设备(IP)|
+|2|数据链路层|把数据发送到本地网络中去(局域网技术，如以太网，WIFI)，通过MAC地址来准确寻址|
+|1|物理层|硬件，编码和信号，负责信号的实际发送和接收|
+
+### TCP/IP模型
+|层级|名称|例子|
+|:-|:-:|-:|
+|4|应用层||
+|3|传输层|TCP/IP|
+|2|互联网层||
+|1|网络接口层||
+
+### Socket
+实际上是对TCP/IP协议的封装，本身并不是协议，而是一个调用接口（API），它工作在OSI模型会话层，是为了方便大家直接使用更底层协议（一般是TCP或UDP）而存在的一个抽象层
+
+### webSocket
+而WebSocket是一个完整的应用层协议，它必须依赖Http协议进行`一次握手`，握手成功后，数据就直接从TCP通道`传输`，与Http无关了
+Http是`短连接`，就是在每次请求完成后就把TCP连接关了
+WebSocket是`长连接`，不主动关闭，由代码控制关闭
+
+1. 先http握手建立连接，调用WebSocket时会自动请求
+```
+ // 请求
+ GET /chat HTTP/1.1   //必需。
+ Host: server.example.com  // 必需。WebSocket服务器主机名
+ Upgrade: websocket // 必需。并且值为" websocket"。有个空格
+ Connection: Upgrade // 必需。并且值为" Upgrade"。有个空格
+ Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ== // 必需。其值采用base64编码的随机16字节长的字符序列，提供基本的防护，比如恶意的连接，或者无意的连接
+ Origin: http://example.com //浏览器必填。头域（RFC6454）用于保护WebSocket服务器不被未授权的运行在浏览器的脚本跨源使用WebSocket API。
+ Sec-WebSocket-Protocol: chat, superchat //选填。可用选项有子协议选择器。
+ Sec-WebSocket-Version: 13 //必需。版本。
+
+Base64(SHA-1(dGhlIHNhbXBsZSBub25jZQ==258EAFA5-E914-47DA-95CA-C5AB0DC85B11))
+
+ // 响应
+ HTTP/1.1 101 Switching Protocols   //必需。响应头。状态码为101。任何非101的响应都为握手未完成。但是HTTP语义是存在的。
+ Upgrade: websocket  // 必需。升级类型。
+ Connection: Upgrade //必需。本次连接类型为升级。
+ Sec-WebSocket-Accept:s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  //必需。表明服务器是否愿意接受连接。如果接受，值就必须是通过上面算法得到的值。
+```
+2. 数据传输，以数据帧的形式传输
+#### 数据帧
+```
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-------+-+-------------+-------------------------------+
+ |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+ |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+ |N|V|V|V|       |S|             |   (if payload len==126/127)   |
+ | |1|2|3|       |K|             |                               |
+ +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+ |     Extended payload length continued, if payload len == 127  |
+ + - - - - - - - - - - - - - - - +-------------------------------+
+ |                               |Masking-key, if MASK set to 1  |
+ +-------------------------------+-------------------------------+
+ | Masking-key (continued)       |          Payload Data         |
+ +-------------------------------- - - - - - - - - - - - - - - - +
+ :                     Payload Data continued ...                :
+ + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+ |                     Payload Data continued ...                |
+ +---------------------------------------------------------------+
+```
+- FIN 1:最后一个分片 0：不是最后一个分片
+- RSV 默认0
+- opcode 
+  - 0 说明用了数据分片
+  - 1 文本帧
+  - 2 二进制帧
+  - 3-7 保留
+  - 8 连接断开
+  - 9 ping操作
+  - A pong操作
+  - B-F 保留
+- Mask 1：使用掩码处理payload
+- Payload length 数据载荷的长度
+- Masking-key (0或者4个字节) 上面Mask为1时，这里有客户端挑选出来的32位的随机数，作用是代理缓存污染攻击
+- Payload data 载荷数据：包括了扩展数据、应用数据
+#### 数据传递
+根据数据帧来传递
+#### 连接保持+心跳
+定时发送ping pong来保持连接
+
+   
+   

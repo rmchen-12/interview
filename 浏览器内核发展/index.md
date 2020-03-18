@@ -1,0 +1,8 @@
+内核开始是分为渲染引擎和JS引擎，后台JS引擎越来越独立，现在专指渲染引擎
+内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同
+
+Firefox浏览器: Gecko内核，俗称Firefox内核
+Safari浏览器：Webkit内核
+IE浏览器: Trident内核，现在也开始改Blink内核
+Chrome浏览器: 以前是Webkit内核，现在是Blink内核
+Opera浏览器：最初是自己的Presto内核，后来是Webkit，现在是Blink内核
