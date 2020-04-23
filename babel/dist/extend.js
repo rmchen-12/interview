@@ -1,17 +1,5 @@
 'use strict';
 
-require('core-js/modules/es7.symbol.async-iterator');
-
-require('core-js/modules/es6.symbol');
-
-require('core-js/modules/es6.reflect.get');
-
-require('core-js/modules/es6.object.set-prototype-of');
-
-require('core-js/modules/es6.object.create');
-
-require('core-js/modules/es6.object.define-property');
-
 function _typeof(obj) {
   '@babel/helpers - typeof';
   if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
@@ -86,7 +74,7 @@ function _inherits(subClass, superClass) {
     throw new TypeError('Super expression must either be null or a function');
   }
   subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: { value: subClass, writable: true, configurable: true }
+    constructor: { value: subClass, writable: true, configurable: true },
   });
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
@@ -125,7 +113,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 var Point =
   /*#__PURE__*/
-  (function() {
+  (function () {
     function Point(x, y) {
       _classCallCheck(this, Point);
 
@@ -138,8 +126,8 @@ var Point =
         key: 'toString',
         value: function toString() {
           return '(' + this.x + ', ' + this.y + ')';
-        }
-      }
+        },
+      },
     ]);
 
     return Point;
@@ -147,7 +135,7 @@ var Point =
 
 var ColorPoint =
   /*#__PURE__*/
-  (function(_Point) {
+  (function (_Point) {
     _inherits(ColorPoint, _Point);
 
     function ColorPoint(x, y, color) {
@@ -175,8 +163,8 @@ var ColorPoint =
               this
             )
           ); // 调用父类的toString()
-        }
-      }
+        },
+      },
     ]);
 
     return ColorPoint;

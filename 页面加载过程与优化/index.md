@@ -9,6 +9,7 @@
  - 建立TCP连接
  - 发送HTTP请求
    - 返回的状态码是301(永久重定向)或者302(临时重定向)，那么 说明服务器需要浏览器重定向到其他URL,一切又重头开始了
+   - 304 使用本地缓存
    - 200的话继续处理
      - 根据Content-Type值来，是text/html就准备渲染进程，否则按对应的进程来处理
  - 准备渲染阶段
@@ -25,7 +26,7 @@
   1. 自上而下，主要dom放前面，优先渲染
 - 样式计算
   - 先转化styleSheets，
-    1. 首屏关键样式内联(HtmlCriticalWebpackPlugin)，不用href去下载，其他不出现在首屏的会加标签`rel="preload" as="style"`来预下载
+    1. 首屏关键样式内联(HtmlCriticalWebpackPlugin，用处不大，mini也可以内联样式)，不用href去下载，其他不出现在首屏的会加a标签`rel="preload" as="style"`来预下载
     2. cssTreeShaking（PurifyCSS插件），可以根据html的节点属性和css的各个选择器匹配，类似babelAST的处理，没用到的就摇掉
     3. 按需加载（mini-css-extract-plugin），或者不拆分出来，加载js的时候再去动态创建css标签
   - 转化样式属性值到标准化值，如em,blue等转化为px,rgb(0,0,255)，
@@ -76,14 +77,25 @@
 
 ### 第二阶段，解析白屏，首屏渲染，缩短白屏时间
 通常情况下的瓶颈主要体现在下载CSS文件、下载JavaScript文件和执行JavaScript，减少关键资源大小，数量
-1. 首屏关键样式内联(HtmlCriticalWebpackPlugin)，不用href去下载，js视情况内联，减少请求
-2. js,css开启treeShaking
-3. 按需加载js,css，mini-css-extract-plugin(按需加载，不重复编译，只针对css，更容易使用)，媒体查询等
-4. js加async,defer，升级到webpack4使用新的代码拆分方式
-5. SSR渲染
-6. preload(本页提前加载)和prefetch(下一页提前加载)，对于首屏可以加preload，我看谷歌原理里说默认就会预加载js,css？
-7. Caching(service workers + sw-toolbox)
-8. 首屏对没出现在视图内的实现按需加载，结合`IntersectionObserver`控制一个变量，出现时再去import()
+- js
+  1. js开启treeShaking
+  2. 按需加载js, import()方法
+  3. js加async,defer，升级到webpack4使用新的代码拆分方式(拆分出vendor和common)
+  4. 首屏对没出现在视图内的实现按需加载，结合`IntersectionObserver`控制一个变量，出现时再去import()
+  5. vw单位适配，去掉rem适配代码
+- css 
+  1. css开启treeShaking 
+  2. css，mini-css-extract-plugin(按需加载，不重复编译，只针对css，更容易使用)，媒体查询等
+  3. 首屏关键样式内联(HtmlCriticalWebpackPlugin)，不用href去下载，js视情况内联，减少请求
+- babel
+  1. 用最新的babel7，preset-env配置出`useBuiltIns: entry`，减少polyfill大小 
+  2. 打包出es next代码和es5两套代码，根据<script type="module" /><script nomodule />区分
+- 其他 
+  1. Caching(service workers + sw-toolbox)
+  2. 本地缓存包，拦截请求拿本地离线包
+  3. preload(本页提前加载)和prefetch(下一页提前加载)，对于首屏可以加preload，我看谷歌原理里说默认就会预加载js,css？
+  4. SSR渲染
+  5. div里先渲染一层loading的dom，基本秒开，htmlWebpackPlugin里加参数指向特定文件夹
    
 ### 第三阶段，交互阶段，优化帧渲染速度
 1. 减少JavaScript脚本执行时间，不能让js一次执行霸占太久主线程

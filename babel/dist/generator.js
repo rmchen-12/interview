@@ -1,7 +1,5 @@
 "use strict";
 
-require("regenerator-runtime/runtime");
-
 var _marked =
 /*#__PURE__*/
 regeneratorRuntime.mark(helloWorldGenerator);

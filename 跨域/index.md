@@ -80,7 +80,7 @@ CORS（Cross-Origin Resource Sharing）跨域资源共享，定义了必须在�
   - 如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。
     - Access-Control-Allow-Origin: http://api.bob.com (必须的，要么是一个域名，要么是*)
     - Access-Control-Allow-Credentials: true (表示是否允许发送Cookie。默认情况下，Cookie不包括在请求中;前端设置是否带cookie,xhr.withCredentials = true;Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名)
-    - Access-Control-Expose-Headers: FooBar (默认只有Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、        Pragma，想拿其他字段就在这里添加)
+    - Access-Control-Expose-Headers: FooBar (默认只有Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma，想拿其他字段就在这里添加)
     - Content-Type: text/html; charset=utf-8 
 - 非简单请求
   - 预检，浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段
@@ -94,4 +94,4 @@ CORS（Cross-Origin Resource Sharing）跨域资源共享，定义了必须在�
     - Access-Control-Allow-Credentials: true (该字段与简单请求时的含义相同)
     - Access-Control-Max-Age: 1728000 (该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。)
   - 通过预检后，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。
-`````NP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS）。
+`````JSONP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS）。

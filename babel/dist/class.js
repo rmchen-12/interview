@@ -1,9 +1,5 @@
 'use strict';
 
-require('core-js/modules/es6.function.name');
-
-require('core-js/modules/es6.object.define-property');
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError('Cannot call a class as a function');
@@ -28,7 +24,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 var Point =
   /*#__PURE__*/
-  (function() {
+  (function () {
     function Point(x, y) {
       _classCallCheck(this, Point);
 
@@ -41,8 +37,8 @@ var Point =
         key: 'toString',
         value: function toString() {
           return '(' + this.x + ', ' + this.y + ')';
-        }
-      }
+        },
+      },
     ]);
 
     return Point;
