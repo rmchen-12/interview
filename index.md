@@ -73,3 +73,8 @@ function hello(obj) {
 - 维护一份相同的静态字典（Static Table），包含常见的头部名称，以及特别常见的头部名称与值的组合；不存在的键值对在首次请求后就可以添加到动态字典里下次就可以一个字节拿到
 - 维护一份相同的动态字典（Dynamic Table），可以动态地添加内容；
 - 支持基于静态哈夫曼码表的哈夫曼编码（Huffman Coding）；
+
+### input与textarea的区别以及用div模拟textarea
+- input 是单行文本框，不会换行
+- textarea 是多行文本输入框，不足就是不能像普通div标签一样高度可以跟随内容自适应。textarea总是很自信地显摆它的滚动条，高度固执地岿然不动。
+- `<div contenteditable="true"></div>` 高度可写`min-height`和`max-height`来伸缩

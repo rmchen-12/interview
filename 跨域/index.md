@@ -63,6 +63,36 @@ server
       echo $callback.'('.json_encode($data).')';//返回js函数，将数据作为参数传递过去
     ?>
 ```
+```
+    function jsonp({ url, params, callback }) {
+      return new Promise((resolve, reject) => {
+        let script = document.createElement('script');
+        window[callback] =  (data) => {
+          resolve(data);
+          document.body.removeChild(script);
+        }
+        params = { ...params, callback }; 
+        let arrs = [];
+        for (let key in params) {
+          arrs.push(`${key}=${params[key]}`);
+        }
+        script.src = `${url}?${arrs.join('&')}`;
+        script.type="type/javascript";
+        document.body.appendChild(script);
+        script.onerror = () => {
+          reject(new Error(`fetch ${url} failed`));
+          document.body.removeChild(script);
+        }
+      });
+    }
+    jsonp({
+      url: 'http://localhost:3001/',
+      params: { test: 'test' },
+      callback: 'show'
+    }).then((data) => {
+      console.log(data);
+    }).catch((e) => { console.log(e) })
+```
 优点：
 - 它不像XMLHttpRequest对象实现的Ajax请求那样受到同源策略的限制；
 - 它的兼容性更好，在更加古老的浏览器中都可以运行，不需要XMLHttpRequest或ActiveX的支持；
@@ -94,4 +124,3 @@ CORS（Cross-Origin Resource Sharing）跨域资源共享，定义了必须在�
     - Access-Control-Allow-Credentials: true (该字段与简单请求时的含义相同)
     - Access-Control-Max-Age: 1728000 (该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。)
   - 通过预检后，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。
-`````JSONP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS）。

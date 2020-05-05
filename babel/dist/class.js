@@ -1,48 +1,28 @@
-'use strict';
+"use strict";
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError('Cannot call a class as a function');
-  }
-}
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ('value' in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 var Point =
-  /*#__PURE__*/
-  (function () {
-    function Point(x, y) {
-      _classCallCheck(this, Point);
+/*#__PURE__*/
+function () {
+  function Point(x, y) {
+    (0, _classCallCheck2["default"])(this, Point);
+    this.x = x;
+    this.y = y;
+  }
 
-      this.x = x;
-      this.y = y;
+  (0, _createClass2["default"])(Point, null, [{
+    key: "toString",
+    value: function toString() {
+      return '(' + this.x + ', ' + this.y + ')';
     }
-
-    _createClass(Point, null, [
-      {
-        key: 'toString',
-        value: function toString() {
-          return '(' + this.x + ', ' + this.y + ')';
-        },
-      },
-    ]);
-
-    return Point;
-  })();
+  }]);
+  return Point;
+}();
 
 Point.name = 'point';
 var point = new Point(2, 3);

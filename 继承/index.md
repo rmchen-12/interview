@@ -127,7 +127,8 @@ function extend(subClass,superClass){
 ```
 
 ## 最终继承写法
-```function Father(name){
+```
+function Father(name){
 	this.name = name;
 	this.colors = ["red","blue","green"];
 }

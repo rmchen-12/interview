@@ -3,8 +3,12 @@
     [
       "@babel/preset-env",
       {
-        // "useBuiltIns": "usage"
+        "useBuiltIns": "entry"
       }
     ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-object-assign"
   ]
 }

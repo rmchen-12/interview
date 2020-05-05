@@ -1,173 +1,59 @@
-'use strict';
+"use strict";
 
-function _typeof(obj) {
-  '@babel/helpers - typeof';
-  if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj &&
-        typeof Symbol === 'function' &&
-        obj.constructor === Symbol &&
-        obj !== Symbol.prototype
-        ? 'symbol'
-        : typeof obj;
-    };
-  }
-  return _typeof(obj);
-}
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === 'object' || typeof call === 'function')) {
-    return call;
-  }
-  return _assertThisInitialized(self);
-}
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError(
-      "this hasn't been initialised - super() hasn't been called"
-    );
-  }
-  return self;
-}
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-function _get(target, property, receiver) {
-  if (typeof Reflect !== 'undefined' && Reflect.get) {
-    _get = Reflect.get;
-  } else {
-    _get = function _get(target, property, receiver) {
-      var base = _superPropBase(target, property);
-      if (!base) return;
-      var desc = Object.getOwnPropertyDescriptor(base, property);
-      if (desc.get) {
-        return desc.get.call(receiver);
-      }
-      return desc.value;
-    };
-  }
-  return _get(target, property, receiver || target);
-}
+var _get2 = _interopRequireDefault(require("@babel/runtime/helpers/get"));
 
-function _superPropBase(object, property) {
-  while (!Object.prototype.hasOwnProperty.call(object, property)) {
-    object = _getPrototypeOf(object);
-    if (object === null) break;
-  }
-  return object;
-}
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf
-    ? Object.getPrototypeOf
-    : function _getPrototypeOf(o) {
-        return o.__proto__ || Object.getPrototypeOf(o);
-      };
-  return _getPrototypeOf(o);
-}
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== 'function' && superClass !== null) {
-    throw new TypeError('Super expression must either be null or a function');
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: { value: subClass, writable: true, configurable: true },
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf =
-    Object.setPrototypeOf ||
-    function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-  return _setPrototypeOf(o, p);
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError('Cannot call a class as a function');
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ('value' in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
 var Point =
-  /*#__PURE__*/
-  (function () {
-    function Point(x, y) {
-      _classCallCheck(this, Point);
+/*#__PURE__*/
+function () {
+  function Point(x, y) {
+    (0, _classCallCheck2["default"])(this, Point);
+    this.x = x;
+    this.y = y;
+  }
 
-      this.x = x;
-      this.y = y;
+  (0, _createClass2["default"])(Point, null, [{
+    key: "toString",
+    value: function toString() {
+      return '(' + this.x + ', ' + this.y + ')';
     }
-
-    _createClass(Point, null, [
-      {
-        key: 'toString',
-        value: function toString() {
-          return '(' + this.x + ', ' + this.y + ')';
-        },
-      },
-    ]);
-
-    return Point;
-  })();
+  }]);
+  return Point;
+}();
 
 var ColorPoint =
-  /*#__PURE__*/
-  (function (_Point) {
-    _inherits(ColorPoint, _Point);
+/*#__PURE__*/
+function (_Point) {
+  (0, _inherits2["default"])(ColorPoint, _Point);
 
-    function ColorPoint(x, y, color) {
-      var _this;
+  function ColorPoint(x, y, color) {
+    var _this;
 
-      _classCallCheck(this, ColorPoint);
+    (0, _classCallCheck2["default"])(this, ColorPoint);
+    _this = (0, _possibleConstructorReturn2["default"])(this, (0, _getPrototypeOf2["default"])(ColorPoint).call(this, x, y)); // 调用父类的constructor(x, y)
 
-      _this = _possibleConstructorReturn(
-        this,
-        _getPrototypeOf(ColorPoint).call(this, x, y)
-      ); // 调用父类的constructor(x, y)
+    _this.color = color;
+    return _this;
+  }
 
-      _this.color = color;
-      return _this;
+  (0, _createClass2["default"])(ColorPoint, [{
+    key: "toString",
+    value: function toString() {
+      return this.color + ' ' + (0, _get2["default"])((0, _getPrototypeOf2["default"])(ColorPoint.prototype), "toString", this).call(this); // 调用父类的toString()
     }
-
-    _createClass(ColorPoint, [
-      {
-        key: 'toString',
-        value: function toString() {
-          return (
-            this.color +
-            ' ' +
-            _get(_getPrototypeOf(ColorPoint.prototype), 'toString', this).call(
-              this
-            )
-          ); // 调用父类的toString()
-        },
-      },
-    ]);
-
-    return ColorPoint;
-  })(Point);
+  }]);
+  return ColorPoint;
+}(Point);
 
 new ColorPoint(1, 2, 'AS');
