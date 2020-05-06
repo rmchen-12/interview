@@ -31,6 +31,6 @@
 ### plugin-transform-runtime
 - corejs
   - false 或 不设置 : 用的corejs 只改语法，不改api
-  - 2 : 用的corejs2，改语法，不修改原型链上api的api
+  - 2 : 用的corejs2，改语法，api(不修改原型链上的那种api)
 - helpers: 默认值是true，用来开启是否使用helper函数来重写语法转换的函数。
 - 是否对文件使用ES的模块语法，使用ES的模块语法可以减少文件的大小

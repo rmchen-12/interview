@@ -7,33 +7,33 @@
     <p id="demo">强制布局demo</p>
     <button onclick="foo()">添加新元素</button>
     <script>
-      function foo() {
-        let main_div = document.getElementById('mian_div');
-        let new_node = document.createElement('li');
-        let textnode = document.createTextNode('time.geekbang');
-        new_node.appendChild(textnode);
-        document.getElementById('mian_div').appendChild(new_node);
-        //由于要获取到offsetHeight，
-        //但是此时的offsetHeight还是老的数据，
-        //所以需要立即执行布局操作
-        // 不读这个的时候0.17ms，读这个参数变成了4.1ms
-        console.log(main_div.offsetHeight);
-      }
+      // function foo() {
+      //   let main_div = document.getElementById('mian_div');
+      //   let new_node = document.createElement('li');
+      //   let textnode = document.createTextNode('time.geekbang');
+      //   new_node.appendChild(textnode);
+      //   document.getElementById('mian_div').appendChild(new_node);
+      //   //由于要获取到offsetHeight，
+      //   //但是此时的offsetHeight还是老的数据，
+      //   //所以需要立即执行布局操作
+      //   // 不读这个的时候0.17ms，读这个参数变成了4.1ms
+      //   console.log(main_div.offsetHeight);
+      // }
 
     
-    //   function foo() {
-    //     let time_li = document.getElementById('time_li');
-    //     for (let i = 0; i < 100; i++) {
-    //       let main_div = document.getElementById('mian_div');
-    //       let new_node = document.createElement('li');
-    //       let textnode = document.createTextNode('time.geekbang');
-    //       new_node.appendChild(textnode);
+      function foo() {
+        let time_li = document.getElementById('time_li');
+        for (let i = 0; i < 100; i++) {
+          let main_div = document.getElementById('mian_div');
+          let new_node = document.createElement('li');
+          let textnode = document.createTextNode('time.geekbang');
+          new_node.appendChild(textnode);
 
-    //       // 本来只要8.7ms，强制同步后变成了34.1ms，多了4倍以上
-    //       new_node.offsetHeight = time_li.offsetHeight;
-    //       document.getElementById('mian_div').appendChild(new_node);
-    //     }
-    //   }
+          // 本来只要8.7ms，强制同步后变成了34.1ms，多了4倍以上
+          new_node.offsetHeight = time_li.offsetHeight;
+          document.getElementById('mian_div').appendChild(new_node);
+        }
+      }
     </script>
   </body>
 </html>
