@@ -1,69 +1,68 @@
 myapp.Model = function() {
-    var val = 0;
+  var val = 0;
 
-    this.add = function(v) {
-        if (val < 100) val += v;
-    };
+  this.add = function(v) {
+    if (val < 100) val += v;
+  };
 
-    this.sub = function(v) {
-        if (val > 0) val -= v;
-    };
+  this.sub = function(v) {
+    if (val > 0) val -= v;
+  };
 
-    this.getVal = function() {
-        return val;
-    };
+  this.getVal = function() {
+    return val;
+  };
 
-    ／* 观察者模式 *／
-    var self = this, 
-        views = [];
+  var self = this,
+    views = [];
 
-    this.register = function(view) {
-        views.push(view);
-    };
+  this.register = function(view) {
+    views.push(view);
+  };
 
-    this.notify = function() {
-        for(var i = 0; i < views.length; i++) {
-            views[i].render(self);
-        }
-    };
+  this.notify = function() {
+    for (var i = 0; i < views.length; i++) {
+      views[i].render(self);
+    }
+  };
 };
 
 myapp.View = function(controller) {
-    var $num = $('#num'),
-        $incBtn = $('#increase'),
-        $decBtn = $('#decrease');
+  var $num = $('#num'),
+    $incBtn = $('#increase'),
+    $decBtn = $('#decrease');
 
-    this.render = function(model) {
-        $num.text(model.getVal() + 'rmb');
-    };
+  this.render = function(model) {
+    $num.text(model.getVal() + 'rmb');
+  };
 
-    /*  绑定事件  */
-    $incBtn.click(controller.increase);
-    $decBtn.click(controller.decrease);
+  /*  绑定事件  */
+  $incBtn.click(controller.increase);
+  $decBtn.click(controller.decrease);
 };
 
 myapp.Controller = function() {
-    var model = null,
-        view = null;
+  var model = null,
+    view = null;
 
-    this.init = function() {
-        /* 初始化Model和View */
-        model = new myapp.Model();
-        view = new myapp.View(this);
+  this.init = function() {
+    /* 初始化Model和View */
+    model = new myapp.Model();
+    view = new myapp.View(this);
 
-        /* View向Model注册，当Model更新就会去通知View啦 */
-        model.register(view);
-        model.notify();
-    };
+    /* View向Model注册，当Model更新就会去通知View啦 */
+    model.register(view);
+    model.notify();
+  };
 
-    /* 让Model更新数值并通知View更新视图 */
-    this.increase = function() {
-        model.add(1);
-        model.notify();
-    };
+  /* 让Model更新数值并通知View更新视图 */
+  this.increase = function() {
+    model.add(1);
+    model.notify();
+  };
 
-    this.decrease = function() {
-        model.sub(1);
-        model.notify();
-    };
+  this.decrease = function() {
+    model.sub(1);
+    model.notify();
+  };
 };

@@ -1,11 +1,5 @@
 "use strict";
 
-require("core-js/modules/es7.symbol.async-iterator");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/web.dom.iterable");
-
 var a = ['a', 'b', 'c', 'd', 'e'];
 var b = {
   a: 1,

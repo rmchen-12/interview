@@ -60,7 +60,7 @@ var maxArea = function(height) {
     if (height[l] < height[r]) {
       l++;
     } else {
-      r++;
+      r--;
     }
     return ans;
   }

@@ -1,13 +1,15 @@
 "use strict";
 
-require("regenerator-runtime/runtime");
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _marked =
 /*#__PURE__*/
-regeneratorRuntime.mark(helloWorldGenerator);
+_regenerator["default"].mark(helloWorldGenerator);
 
 function helloWorldGenerator() {
-  return regeneratorRuntime.wrap(function helloWorldGenerator$(_context) {
+  return _regenerator["default"].wrap(function helloWorldGenerator$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
