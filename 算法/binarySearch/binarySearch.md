@@ -10,7 +10,7 @@
 4. 如需定义左闭右开的「搜索区间」搜索左右边界，只要在 nums[mid] == target 时做修改即可，搜索右侧时需要减一。
 
 ##### 寻找一个数的二分搜索
-```
+```javascript
 function binarySearch(nums, target) {
     const left = 0, right = nums.length - 1;
     while( left <= right ){
@@ -28,7 +28,7 @@ function binarySearch(nums, target) {
 ```
 
 ##### 寻找左侧边界的二分搜索
-```
+```javascript
 function left_bound(nums, target) {
     const left = 0, right = nums.length - 1;
     while( left <= right ){
@@ -49,7 +49,7 @@ function left_bound(nums, target) {
 ```
 
 ##### 寻找右侧边界的二分搜索
-```
+```javascript
 function right_bound(nums, target) {
     const left = 0, right = nums.length - 1;
     while( left <= right ){

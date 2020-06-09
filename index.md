@@ -15,6 +15,17 @@
   2. 将空对象分配this值
   3. 将空对象的__proto__指向构造函数的prototype
   4. 如果没有显示return语句，则返回this
+```javascript
+function _new(constructor, ...args) {
+	// 创建一个新对象
+    let newObj = Object.create(constructor) 
+    // 执行构造函数，即绑定 this，并且为这个新对象添加属性
+    constructor.apply(newObj, args);
+    // 返回该对象
+    return newObj;
+}
+```
+
 
 ## 箭头函数跟普通函数表达式不同
   1. 箭头函数不可能被提升（匿名）
@@ -63,7 +74,7 @@ function hello(obj) {
 }
 ```
 
-### 对象的属性遍历规则(由于对象的输出是无序的，但是数组却是有序的，所以为了保证顺序，搞成数组再输出)：
+### 对象的属性遍历规则(由于对象的输出是无序的，但是数组却是有序的（Map也可以），所以为了保证顺序，搞成数组再输出)：
 - Chrome Opera 中使用 for-in 语句遍历对象属性时会遵循一个规律：
   > 它们会先提取所有 key 的 parseFloat 值为非负整数的属性，然后根据数字顺序对属性排序首先遍历出来，然后按照对象定义的顺序遍历余下的所有属性
 - 其它浏览器则完全按照对象定义的顺序遍历属性
@@ -78,3 +89,14 @@ function hello(obj) {
 - input 是单行文本框，不会换行
 - textarea 是多行文本输入框，不足就是不能像普通div标签一样高度可以跟随内容自适应。textarea总是很自信地显摆它的滚动条，高度固执地岿然不动。
 - `<div contenteditable="true"></div>` 高度可写`min-height`和`max-height`来伸缩
+
+### Map和Object区别
+- Map是有序的，可以直接迭代
+- 键值可是任意键
+- Object有自己的原型，Map比较纯粹
+- 键值增删改查场景中更加友好，且效率更高
+
+### Object.is比较规则
+- -0 和 +0相等
+- NaN 和 NaN 相等
+- 其他用 === 判断
