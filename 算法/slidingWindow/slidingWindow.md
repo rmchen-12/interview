@@ -3,14 +3,15 @@
 ### 滑动窗口
 
 - 模板
-```c
+
+```c++
 /* 滑动窗口算法框架 */
 function slidingWindow(s, t) {
     const need = {}, window = {};
     for (let i = 0; i < t.length; i++) {
        need[t[i]] = need[t[i]] ? need[t[i]] + 1 : 1
     }
-    
+
     let left = 0, right = 0, valid = 0;
     while (right < s.length) {
         // c 是将移入窗口的字符, 右移指针
@@ -33,4 +34,5 @@ function slidingWindow(s, t) {
     }
 }
 ```
+
 其中两处 ... 表示的更新窗口数据的地方，到时候你直接往里面填就行了

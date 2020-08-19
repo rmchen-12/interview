@@ -1,7 +1,7 @@
 // 防抖和节流：
 const debounce = (fn, time, immediate) => {
   let timer = null;
-  return function(...args) {
+  return function (...args) {
     let context = this;
     if (immediate && !timer) {
       fn.apply(context, args);
@@ -17,7 +17,7 @@ const debounce = (fn, time, immediate) => {
 
 const throttle = (fn, time, immediate) => {
   let timer = null;
-  return function(...args) {
+  return function (...args) {
     const context = this;
     if (immediate) {
       fn.apply(context, args);
@@ -32,35 +32,6 @@ const throttle = (fn, time, immediate) => {
       timer = null;
     }, time);
   };
-};
-
-// 深拷贝
-const isObj = a => {
-  const type = typeof a;
-  return a !== 'null' && (type === 'object' || type === 'function');
-};
-
-const deepClone = (target, map = new Map()) => {
-  if (!isObj(target)) {
-    return target;
-  }
-
-  const isArray = Array.isArray(target);
-  let cloneObj = isArray ? [] : {};
-
-  if (map.get(target)) {
-    return map.get(target);
-  }
-  map.set(target, cloneObj);
-
-  const keys = Object.keys(target);
-  const length = keys.length;
-  let index = -1;
-  while (++index < length) {
-    cloneObj[keys[index]] = deepClone(target[keys[index]]);
-  }
-
-  return cloneObj;
 };
 
 // eventEmitter
@@ -84,26 +55,84 @@ class eventEmitter {
   off(type, func) {}
 }
 
-class a {
-  constructor(params) {
-    const demo = {
-      1: {
-        a: (window.a = 1),
-        r: (window.a = null)
-      },
-      2: {
-        a: (window.a = 1),
-        r: (window.a = null)
+const isObj = (target) => {
+  const t = typeof target;
+  return t !== null && (t === 'object' || t === 'function');
+};
+
+const deepClone = function (obj, map = new Map()) {
+  if (!isObj(obj)) return obj;
+
+  let newObj = Array.isArray(obj) ? [] : {};
+
+  if (map.get(obj)) {
+    return map.get(obj);
+  }
+  map.set(obj, newObj);
+
+  for (const [key, value] of Object.entries(obj)) {
+    newObj[key] = isObj(value) ? deepClone(value) : value;
+  }
+
+  return newObj;
+};
+
+class Promise {
+  constructor(fn) {
+    this.state = 'pending';
+    this.value = null;
+    this.reason = null;
+    this.resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled';
+        this.state = value;
       }
     };
-    this.demo = demo;
+    this.reject = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected';
+        this.reason = value;
+      }
+    };
+    try {
+      fn(resolve, reject);
+    } catch (error) {
+      this.reject(this.reason);
+    }
   }
 
-  dispatch(type, ...props) {
-    this.demo[type].apply(this, props);
-  }
-
-  recover() {
-    Object.keys(this.demo).forEach(v => v.r());
+  then(onFulfilled, onRejected) {
+    switch (this.state) {
+      case 'fulfilled':
+        onFulfilled(this.value);
+        break;
+      case 'rejected':
+        onRejected(this.reason);
+        break;
+      default:
+        break;
+    }
   }
 }
+
+Promise.all = (pArr) => {
+  let iterator = pArr[Symbol.iterator]();
+
+  return new Promise((resolve, reject) => {
+    let result = [];
+    const next = function () {
+      let { done, value } = iterator.next();
+      if (done) {
+        resolve(result);
+      } else {
+        value
+          .then((res) => {
+            result.push(res);
+            next();
+          })
+          .catch((e) => reject(e));
+      }
+    };
+    next();
+  });
+};

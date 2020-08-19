@@ -14,7 +14,7 @@ function combine(n, k) {
 
 function backTrack(k, n, start, track) {
   if (track.length === k) {
-    res.push(JSON.parse(JSON.stringify(track)));
+    res.push(track.slice());
     return;
   }
 

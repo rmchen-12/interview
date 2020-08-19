@@ -1,29 +1,25 @@
 const resolveAll = (arr) => {
-  const iterator = arr[Symbol.iterator]();
-  const result = [];
-
   return new Promise((resolve, reject) => {
-    const next = async () => {
-      let element = iterator.next();
-      if (element.done) {
-        resolve(result);
-      } else {
-        try {
-          const res = await element.value;
-          result.push(res);
-          next();
-        } catch (error) {
-          reject(error);
+    let result = [];
+    let count = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+      const promise = arr[i];
+      promise.then((data) => {
+        result[i] = data;
+        if (result.length === ++count) {
+          resolve(result);
         }
-      }
-    };
-    next();
+      }, reject);
+    }
   });
 };
 
 function a(a) {
   return new Promise((resolve, reject) => {
-    resolve(1);
+    setTimeout(() => {
+      resolve(1);
+    }, 2000);
   });
 }
 

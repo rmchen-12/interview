@@ -25,3 +25,5 @@ function backTrack(nums, track) {
     track.pop();
   }
 }
+
+console.log(permute([1, 2, 3, 4]));
