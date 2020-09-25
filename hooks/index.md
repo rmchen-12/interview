@@ -1,8 +1,9 @@
 ### 优点
 
-1. 函数式组件相比 class 组件通常可以精简不少代码。
+1. 状态逻辑复用
 2. 没有生命周期的束缚后，一些相互关联的逻辑不用被强行分割。比如在 componentDidMount 中设置了定时器，需要在 componentWillUnmount 中清除；又或者在 componentDidMount 中获取了初始数据，但要记得在 componentDidUpdate 中进行更新。这些逻辑由于 useEffect hook 的引入而得以写在同一个地方，能有效避免一些常见的 bug。
 3. 有效减少与善变的 this 打交道。
+4. 预编译能力，class 会使优化措施无效，也不能更好的压缩，热重载不稳定
 
 ### 缺点
 
